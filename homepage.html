@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Market Basket Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f3f4f6;
+      color: #111827;
+      display: flex;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: 240px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .sidebar h2 {
+      font-size: 22px;
+      margin-bottom: 40px;
+      font-weight: 700;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      margin: 15px 0;
+      display: block;
+      font-weight: 500;
+      transition: opacity 0.3s;
+    }
+
+    .sidebar a:hover {
+      opacity: 0.8;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 40px;
+      overflow-y: auto;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #4b5563;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      margin-bottom: 24px;
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .input-group {
+      margin-top: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 8px;
+    }
+
+    input {
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 20px;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      border: none;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #5a6fd1, #6a4299);
+    }
+
+    footer {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div>
+      <h2>🛒 Market Basket</h2>
+      <a href="#">Dashboard</a>
+      <a href="#">Upload Data</a>
+      <a href="#">Frequent Items</a>
+      <a href="#">Recommendations</a>
+      <a href="#">Reports</a>
+    </div>
+    <footer>&copy; 2025 Insights Inc.</footer>
+  </div>
+
+  <div class="main-content">
+    <div class="header">
+      <h1>Customer Market Basket Analysis</h1>
+      <button>Logout</button>
+    </div>
+
+    <div class="card">
+      <h2>Login to your account</h2>
+      <form>
+        <div class="input-group">
+          <label for="customer-id">Customer ID</label>
+          <input type="text" id="customer-id" placeholder="Enter customer ID" required>
+        </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter password" required>
+        </div>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>🧠 Upcoming: Prediction Insights</h2>
+      <p>Once logged in, you’ll see product combinations, trend predictions, and analytics visualized here!</p>
+    </div>
+  </div>
+</body>
+</html>
