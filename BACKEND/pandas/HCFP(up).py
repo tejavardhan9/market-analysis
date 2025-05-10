@@ -2,9 +2,11 @@ import pandas as pd
 from collections import defaultdict
 from typing import List, Dict, Optional, Tuple
 
-# Load dataset
-df = pd.read_csv("C:/Users/tejav/OneDrive/Documents/GitHub/market-analysis/BACKEND/pandas/DATASET/Groceries_dataset.csv")
-transactions = df.groupby("Member_number")["itemDescription"].apply(list).tolist()
+# Load the updated dataset
+df = pd.read_csv("C:/Users/tejav/OneDrive/Documents/GitHub/market-analysis/BACKEND/pandas/DATASET/Updated_Groceries_dataset.csv")
+
+# Group items by Transaction_ID (better granularity than Member_number)
+transactions = df.groupby("Transaction_ID")["itemDescription"].apply(list).tolist()
 
 # Step 1: Compress transactions based on item frequency
 def compress_transactions(transactions: List[List[str]], min_item_frequency: int = 2) -> Tuple[List[List[str]], Dict[str, int]]:
@@ -47,6 +49,7 @@ def build_fp_tree(transactions: List[List[str]], min_support: int) -> Tuple[Tree
                 header_table[item].append(new_node)
             current_node = current_node.children[item]
 
+    # Prune header table based on support
     header_table = {
         item: nodes for item, nodes in header_table.items()
         if sum(n.count for n in nodes) >= min_support
@@ -76,59 +79,42 @@ def mine_patterns(header_table: Dict[str, List[TreeNode]], min_support: int) -> 
 def generate_recommendations(patterns: Dict[Tuple[str, ...], int]) -> List[Tuple[Tuple[str, ...], int]]:
     return sorted(patterns.items(), key=lambda x: -x[1])
 
-# Step 6: Purchase Trend Analysis (if Date column exists)
+# Step 6: Purchase Trend Analysis
 def analyze_purchase_trends(df: pd.DataFrame):
     if 'Date' in df.columns:
         df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
         df['DayOfWeek'] = df['Date'].dt.day_name()
         df['Hour'] = df['Date'].dt.hour
 
-        # Most active shopping day
         active_day = df['DayOfWeek'].mode()[0]
-
-        # Peak shopping hours
         peak_hours = df.groupby('Hour').size().idxmax()
-
-        # Average basket size
-        basket_size = df.groupby('Member_number')['itemDescription'].apply(len).mean()
+        basket_size = df.groupby('Transaction_ID')['itemDescription'].apply(len).mean()
 
         return active_day, peak_hours, basket_size
     else:
         return None, None, None
 
 # Step 7: Run the Algorithm
-# Compress Transactions
 compressed_tx, item_freq = compress_transactions(transactions, min_item_frequency=5)
-
-# Build FP-Tree
 fp_root, header_table = build_fp_tree(compressed_tx, min_support=5)
-
-# Mine Frequent Patterns
 frequent_patterns = mine_patterns(header_table, min_support=5)
-
-# Generate Recommendations
 recommendations = generate_recommendations(frequent_patterns)
-
-# Purchase Trend Analysis (assuming the 'Date' column exists)
 active_day, peak_hours, basket_size = analyze_purchase_trends(df)
 
-# Display Results
+# Step 8: Display Results
 print("Frequently Bought Together:")
 for items, count in recommendations[:10]:
-    items_str = " + ".join(items)
-    confidence = (count / len(transactions)) * 100
-    print(f"Customers who bought {items[0]} also bought {items[1]} ({confidence:.2f}%).")
+    if len(items) >= 2:
+        print(f"Customers who bought {items[0]} also bought {items[1]} ({(count / len(transactions)) * 100:.2f}%).")
 
 print("\nTop Recommendations:")
-print("Based on your history, we recommend:\n")
 for items, count in recommendations[:10]:
-    items_str = " + ".join(items)
-    print(f"{items_str} combo")
+    print(" + ".join(items))
 
 print("\nPurchase Trends:")
 if active_day:
     print(f"Most active shopping day: {active_day}")
-    print(f"Peak shopping hours: {peak_hours}:00")
+    print(f"Peak shopping hour: {peak_hours}:00")
     print(f"Average basket size: {basket_size:.2f} items")
 else:
-    print("Purchase trend analysis is unavailable (missing 'Date' column).")
+    print("Date column missing — trend analysis unavailable.")
