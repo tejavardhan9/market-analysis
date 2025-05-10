@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Market Basket Analysis</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+        
+        .login-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            padding: 40px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1 {
+            color: #764ba2;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border 0.3s;
+        }
+        
+        input:focus {
+            border-color: #764ba2;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.2);
+        }
+        
+        .login-btn {
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            width: 100%;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .login-btn:hover {
+            background: linear-gradient(to right, #5a6fd1, #6a4299);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .signup-link {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .signup-link a {
+            color: #764ba2;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .signup-link a:hover {
+            color: #5a3d84;
+            text-decoration: underline;
+        }
+        
+        .logo {
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #764ba2;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">Market Basket Insights</div>
+        <h1>Customer Market Basket Analysis</h1>
+        
+        <form>
+            <div class="input-group">
+                <label for="customer-id">Customer ID</label>
+                <input type="text" id="customer-id" placeholder="Enter your customer ID" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+            
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+        
+        <div class="signup-link">
+            Don't have an account? <a href="#">Sign up</a>
+        </div>
+    </div>
+</body>
+</html>
