@@ -1,0 +1,7 @@
+<title>Frequent Items</title>
+<h1>Frequent Itemsets</h1>
+<div class="card">
+  {% for items, count in frequent_items %}
+    <p><strong>{{ items | join(' + ') }}</strong> — {{ count }} times</p>
+  {% endfor %}
+</div>

@@ -114,7 +114,7 @@ for items, count in recommendations[:10]:
 print("\nPurchase Trends:")
 if active_day:
     print(f"Most active shopping day: {active_day}")
-    print(f"Peak shopping hour: {peak_hours}:00")
+    print(f"Peak shopping hour: {peak_hours}:7:00 pm")
     print(f"Average basket size: {basket_size:.2f} items")
 else:
     print("Date column missing — trend analysis unavailable.")
