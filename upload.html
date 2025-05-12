@@ -1,0 +1,27 @@
+{% extends "second_page.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4>Upload Transaction Data</h4>
+            </div>
+            <div class="card-body">
+                <!-- Corrected form action to use 'upload' instead of 'upload_data' -->
+                <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Select CSV File</label>
+                        <input class="form-control" type="file" id="formFile" name="file" accept=".csv" required>
+                        <div class="form-text">
+                            Please upload a CSV file with your transaction data.
+                            Required columns: Member_number and itemDescription OR transaction_id and item.
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload & Process</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

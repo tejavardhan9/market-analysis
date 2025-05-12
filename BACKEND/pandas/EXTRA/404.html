@@ -1,0 +1,10 @@
+{% extends "homepage.html" %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h1 class="display-1">404</h1>
+    <p class="lead">Page Not Found</p>
+    <p>We couldn't find what you're looking for.</p>
+    <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Go to Dashboard</a>
+</div>
+{% endblock %}

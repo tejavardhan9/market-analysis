@@ -1,7 +1,0 @@
-<title>Recommendations</title>
-<h1>Recommended Product Combos</h1>
-<div class="card">
-  {% for items, score in recommendations %}
-    <p>{{ items | join(' + ') }} — Confidence: {{ score }}%</p>
-  {% endfor %}
-</div>

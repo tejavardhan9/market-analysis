@@ -1,0 +1,136 @@
+{% extends "homepage.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h2>Frequently Bought Together</h2>
+        <div class="card">
+            <div class="card-body">
+                <div id="recommendationsChart" style="height: 400px;">
+                    <canvas id="associationsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <h2>Purchase Trends</h2>
+        <div class="card mb-3">
+            <div class="card-body">
+                {% if trends and 'error' not in trends %}
+                    <p><strong>Most Active Day:</strong> {{ trends.active_day }}</p>
+                    <p><strong>Peak Shopping Hour:</strong> {{ trends.peak_hour }}:00</p>
+                    <p><strong>Avg Basket Size:</strong> {{ "%.2f"|format(trends.avg_basket_size) }} items</p>
+                {% else %}
+                    <p class="text-danger">Trend data unavailable</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <h2>Top Items</h2>
+        <div class="card">
+            <div class="card-body">
+                <canvas id="topItemsChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3>Recommendation Details</h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped" id="recommendationsTable">
+                    <thead>
+                        <tr>
+                            <th>Items</th>
+                            <th>Frequency</th>
+                            <th>Support</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Load recommendations
+    fetch('/api/recommendations')
+        .then(response => response.json())
+        .then(data => {
+            // Update table
+            const tableBody = document.querySelector('#recommendationsTable tbody');
+            tableBody.innerHTML = data.map(item => `
+                <tr>
+                    <td>${item.items.join(' + ')}</td>
+                    <td>${item.count}</td>
+                    <td>${item.support}</td>
+                </tr>
+            `).join('');
+            
+            // Prepare chart data
+            const labels = data.map(item => item.items.join(' + '));
+            const counts = data.map(item => item.count);
+            
+            // Create chart
+            new Chart(
+                document.getElementById('associationsChart'),
+                {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Frequency',
+                            data: counts,
+                            backgroundColor: 'rgba(54, 162, 235, 0.6)'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { callbacks: { label: ctx => `${ctx.raw} purchases` } }
+                        }
+                    }
+                }
+            );
+        });
+    
+    // Load top items
+    fetch('/api/frequent_items')
+        .then(response => response.json())
+        .then(data => {
+            new Chart(
+                document.getElementById('topItemsChart'),
+                {
+                    type: 'doughnut',
+                    data: {
+                        labels: data.map(item => item.item),
+                        datasets: [{
+                            data: data.map(item => item.count),
+                            backgroundColor: [
+                                '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', 
+                                '#9966FF', '#FF9F40', '#8AC24A', '#607D8B'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { position: 'right' }
+                        }
+                    }
+                }
+            );
+        });
+});
+</script>
+{% endblock %}
