@@ -1,27 +1,26 @@
-{% extends "homepage.html" %}
-
-{% block content %}
-<div class="row justify-content-center mt-5">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h4>Upload Transaction Data</h4>
-            </div>
-            <div class="card-body">
-                <!-- Corrected form action to use 'upload' instead of 'upload_data' -->
-                <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label for="formFile" class="form-label">Select CSV File</label>
-                        <input class="form-control" type="file" id="formFile" name="file" accept=".csv" required>
-                        <div class="form-text">
-                            Please upload a CSV file with your transaction data.
-                            Required columns: Member_number and itemDescription OR transaction_id and item.
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Upload & Process</button>
-                </form>
-            </div>
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>📊 Market Basket</h2>
+        <a href="/homepage.html">Dashboard</a>
+        <a href="/upload">Upload Data</a>
+        <a href="/frequent">Frequent Items</a>
+        <a href="/recommendations">Recommendations</a>
+        <a href="/reports">Reports</a>
     </div>
-</div>
-{% endblock %}
+
+    <div class="main-content">
+        <h1 class="section-title">Upload Data</h1>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" required><br><br>
+            <button type="submit">Upload CSV</button>
+        </form>
+    </div>
+</body>
+</html>

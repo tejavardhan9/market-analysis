@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frequent Items - Market Basket Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .chart-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            max-width: 900px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .pie-chart {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #FF6384 0% 41.51%,
+                #36A2EB 41.51% 62.67%,
+                #FFCE56 62.67% 79.68%,
+                #4BC0C0 79.68% 84.75%,
+                #9966FF 84.75% 91.7%,
+                #FF9F40 91.7% 100%
+            );
+        }
+        .legend {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .color-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        .label {
+            font-size: 14px;
+            color: #333;
+            min-width: 120px;
+        }
+        .percentage {
+            font-weight: bold;
+            color: #555;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <h1>Frequent Item Categories (%)</h1>
+        
+        <div class="pie-chart"></div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="color-box" style="background-color: #FF6384;"></div>
+                <span class="label">Food</span>
+                <span class="percentage">41.51%</span>
+            </div>
+            <div class="legend-item">
+                <div class="color-box" style="background-color: #36A2EB;"></div>
+                <span class="label">Other</span>
+                <span class="percentage">21.16%</span>
+            </div>
+            <div class="legend-item">
+                <div class="color-box" style="background-color: #FFCE56;"></div>
+                <span class="label">Gift and Flowers</span>
+                <span class="percentage">17.01%</span>
+            </div>
+            <div class="legend-item">
+                <div class="color-box" style="background-color: #4BC0C0;"></div>
+                <span class="label">Accessories</span>
+                <span class="percentage">8.29%</span>
+            </div>
+            <div class="legend-item">
+                <div class="color-box" style="background-color: #9966FF;"></div>
+                <span class="label">Beauty and Care</span>
+                <span class="percentage">6.95%</span>
+            </div>
+            <div class="legend-item">
+                <div class="color-box" style="background-color: #FF9F40;"></div>
+                <span class="label">Clothes</span>
+                <span class="percentage">5.07%</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

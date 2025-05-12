@@ -1,7 +1,110 @@
-<title>Frequent Items</title>
-<h1>Frequent Itemsets</h1>
-<div class="card">
-  {% for items, count in frequent_items %}
-    <p><strong>{{ items | join(' + ') }}</strong> — {{ count }} times</p>
-  {% endfor %}
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Market Basket Insights</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .chart-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      width: 90%;
+      max-width: 1000px;
+      background-color: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    .header {
+      grid-column: span 3;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      color: #333;
+    }
+
+    .percentage-item {
+      background-color: #fdfdfd;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .percentage {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #764ba2;
+      margin-bottom: 8px;
+    }
+
+    .label {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 768px) {
+      .chart-container {
+        grid-template-columns: 1fr;
+      }
+
+      .header h1 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="chart-container">
+    <div class="header">
+      <h1>📊 Benefits of Market Basket Analysis</h1>
+    </div>
+
+    <div class="percentage-item">
+      <div class="percentage">60%</div>
+      <div class="label">Save time by automating purchase pattern analysis</div>
+    </div>
+
+    <div class="percentage-item">
+      <div class="percentage">55%</div>
+      <div class="label">Get smarter product placement recommendations</div>
+    </div>
+
+    <div class="percentage-item">
+      <div class="percentage">50%</div>
+      <div class="label">Reduce manual effort in detecting item associations</div>
+    </div>
+
+    <div class="percentage-item">
+      <div class="percentage">48%</div>
+      <div class="label">Increase sales by recommending complementary items</div>
+    </div>
+
+    <div class="percentage-item">
+      <div class="percentage">45%</div>
+      <div class="label">Understand customer behavior better over time</div>
+    </div>
+
+    <div class="percentage-item">
+      <div class="percentage">42%</div>
+      <div class="label">Improve marketing strategies with data-driven insights</div>
+    </div>
+  </div>
+</body>
+</html>

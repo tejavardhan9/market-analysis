@@ -142,26 +142,23 @@
   </style>
 </head>
 <body>
-  <!-- Sidebar Section -->
   <div class="sidebar">
     <div>
       <h2>🛒 Market Basket</h2>
       <a href="#">Dashboard</a>
-      <a href="#">Upload Data</a>
-      <a href="#">Frequent Items</a>
-      <a href="#">Recommendations</a>
+      <a href="upload.html">Upload Data</a>
+      <a href="frequent.html">Frequent Items</a>
+      <a href="recommendations.html">Recommendations</a>
       <a href="#">Reports</a>
     </div>
     <footer>&copy; 2025 Insights Inc.</footer>
   </div>
 
-  <!-- Main Content Section -->
   <div class="main-content">
     <div class="header">
       <h1>Welcome to Market Basket Analysis</h1>
     </div>
 
-    <!-- Recommendations Section -->
     <div class="section">
       <h2>Top Recommendations</h2>
       <div class="cards">
@@ -174,13 +171,12 @@
       </div>
     </div>
 
-    <!-- Purchase Trends Section -->
     <div class="section trends">
       <h2>Purchase Trends</h2>
       {% if trends %}
         <p><strong>🗓️ Most Active Shopping Day:</strong> {{ trends.active_day }}</p>
         <p><strong>⏰ Peak Shopping Hour:</strong> {{ trends.peak_hour }}:00</p>
-        <p><strong>🛍️ Average Basket Size:</strong> {{ trends.basket_size }} items</p>
+        <p><strong>🛍️ Average Basket Size:</strong> {{ trends.basket_size | round(2) }} items</p>
       {% else %}
         <p>Trend data not available.</p>
       {% endif %}

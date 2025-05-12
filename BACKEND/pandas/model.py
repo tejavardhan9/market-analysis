@@ -39,7 +39,7 @@ class HCFPGrowthModel:
 
         return [sort_items(t) for t in transactions if sort_items(t)]
 
-    def _build_fp_tree(self, transactions: List[List[str]]) -> Tuple['TreeNode', Dict[str, List['TreeNode']]]:
+    def _build_fp_tree(self, transactions: List[List[str]]):
         header_table: Dict[str, List[HCFPGrowthModel.TreeNode]] = defaultdict(list)
         root = self.TreeNode(None, None)
 
@@ -94,9 +94,9 @@ class HCFPGrowthModel:
             df['DayOfWeek'] = df['Date'].dt.day_name()
             df['Hour'] = df['Date'].dt.hour
 
-            self.active_day = df['DayOfWeek'].mode()[0]
-            self.peak_hours = df.groupby('Hour').size().idxmax()
-            self.basket_size = df.groupby('Member_number')['itemDescription'].apply(len).mean()
+            self.active_day = df['DayOfWeek'].mode()[0] if not df['DayOfWeek'].mode().empty else None
+            self.peak_hours = df.groupby('Hour').size().idxmax() if not df.empty else None
+            self.basket_size = df.groupby('Member_number')['itemDescription'].apply(len).mean() if not df.empty else None
 
     def get_trends(self) -> Tuple[Optional[str], Optional[int], Optional[float]]:
         return self.active_day, self.peak_hours, self.basket_size

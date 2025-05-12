@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Market Basket</h2>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('upload') }}">Upload Data</a>
+        <a href="{{ url_for('frequent_items') }}">Frequent Items</a>
+        <a href="{{ url_for('recommendations') }}">Recommendations</a>
+    </div>
+    <div class="main-content">
+        <h1>Welcome to Market Basket Analysis</h1>
+        <div class="card">
+            <h2>Top Recommendations</h2>
+            {% for items, count in recommendations %}
+                <p><strong>{{ items | join(', ') }}</strong> — {{ count }} purchases</p>
+            {% endfor %}
+        </div>
+        <div class="card">
+            <h2>Purchase Trends</h2>
+            {% if trends %}
+                <p>📅 Most Active Shopping Day: {{ trends.active_day }}</p>
+                <p>⏰ Peak Shopping Hour: {{ trends.peak_hour }}:00</p>
+                <p>🧺 Average Basket Size: {{ trends.basket_size }} items</p>
+            {% else %}
+                <p>Trend data not available.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
