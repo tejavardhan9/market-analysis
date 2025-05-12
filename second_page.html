@@ -1,133 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Market Basket Insights</title>
+  <meta charset="UTF-8" />
+  <title>Market Basket Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #8360c3, #2ebf91);
-      color: #333;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
+    :root {
+      --primary-color: #764ba2;
+      --secondary-color: #667eea;
+      --background: #f3f4f6;
+      --card-bg: #ffffff;
+      --text-color: #333;
     }
 
-    .container {
-      background: white;
-      border-radius: 12px;
-      width: 100%;
-      max-width: 600px;
-      padding: 40px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--background);
+      color: var(--text-color);
+      display: flex;
+      height: 100vh;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      width: 240px;
+      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+      color: white;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .sidebar h2 {
+      font-size: 22px;
+      margin-bottom: 40px;
+      font-weight: 700;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      margin: 15px 0;
+      display: block;
+      font-weight: 500;
+      transition: opacity 0.3s;
+    }
+
+    .sidebar a:hover {
+      opacity: 0.8;
+    }
+
+    footer {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
       text-align: center;
+      margin-top: 50px;
+    }
+
+    /* Main Content Styles */
+    .main-content {
+      flex: 1;
+      padding: 40px;
+      overflow-y: auto;
     }
 
     .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 30px;
-      color: #5d3fd3;
     }
 
     .header h1 {
-      margin: 0;
-      font-size: 2.5rem;
+      font-size: 28px;
+      font-weight: 700;
+      color: #4b5563;
     }
 
-    .header p {
-      color: #666;
-      margin-top: 10px;
+    .section {
+      margin-bottom: 40px;
     }
 
-    .action-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-top: 40px;
+    .section h2 {
+      font-size: 24px;
+      color: var(--primary-color);
+      margin-bottom: 20px;
     }
 
-    .btn {
-      display: inline-block;
-      padding: 12px 24px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      text-align: center;
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
     }
 
-    .btn-primary {
-      background-color: #5d3fd3;
-      color: white;
-      border: 2px solid #5d3fd3;
+    .card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .btn-primary:hover {
-      background-color: #4b2fb1;
-      border-color: #4b2fb1;
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.12);
     }
 
-    .btn-secondary {
-      background-color: white;
-      color: #5d3fd3;
-      border: 2px solid #5d3fd3;
-    }
-
-    .btn-secondary:hover {
-      background-color: #f8f8fc;
-    }
-
-    .flashes {
-      margin: 20px 0;
-    }
-
-    .flash {
-      padding: 10px 15px;
-      border-radius: 4px;
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
       margin-bottom: 10px;
+      color: #444;
     }
 
-    .flash-success {
-      background-color: #d4edda;
-      color: #155724;
+    .card-subtext {
+      color: #666;
+      font-size: 14px;
     }
 
-    .flash-warning {
-      background-color: #fff3cd;
-      color: #856404;
+    .trends p {
+      font-size: 16px;
+      margin-bottom: 10px;
+      color: #444;
     }
 
-    .flash-danger {
-      background-color: #f8d7da;
-      color: #721c24;
+    @media (max-width: 600px) {
+      .header h1 {
+        font-size: 22px;
+      }
+      .card-title {
+        font-size: 16px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header class="header">
-      <h1>Market Basket Insights</h1>
-      <p>Discover customer purchase patterns and product associations</p>
-    </header>
+  <!-- Sidebar Section -->
+  <div class="sidebar">
+    <div>
+      <h2>🛒 Market Basket</h2>
+      <a href="#">Dashboard</a>
+      <a href="#">Upload Data</a>
+      <a href="#">Frequent Items</a>
+      <a href="#">Recommendations</a>
+      <a href="#">Reports</a>
+    </div>
+    <footer>&copy; 2025 Insights Inc.</footer>
+  </div>
 
-    <!-- Flash messages -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <div class="flashes">
-          {% for category, message in messages %}
-            <div class="flash flash-{{ category }}">{{ message }}</div>
-          {% endfor %}
+  <!-- Main Content Section -->
+  <div class="main-content">
+    <div class="header">
+      <h1>Welcome to Market Basket Analysis</h1>
+    </div>
+
+    <!-- Recommendations Section -->
+    <div class="section">
+      <h2>Top Recommendations</h2>
+      <div class="cards">
+        {% for items, count in recommendations %}
+        <div class="card">
+          <div class="card-title">{{ items | join(' + ') }}</div>
+          <div class="card-subtext">{{ count }} customers bought this combo</div>
         </div>
-      {% endif %}
-    {% endwith %}
+        {% endfor %}
+      </div>
+    </div>
 
-    <div class="action-buttons">
-        
-      <a href="/homepage.html" class="btn btn-primary">Homepage</a>
-      <a href="/upload.html" class="btn btn-secondary">Upload Dataset</a>
+    <!-- Purchase Trends Section -->
+    <div class="section trends">
+      <h2>Purchase Trends</h2>
+      {% if trends %}
+        <p><strong>🗓️ Most Active Shopping Day:</strong> {{ trends.active_day }}</p>
+        <p><strong>⏰ Peak Shopping Hour:</strong> {{ trends.peak_hour }}:00</p>
+        <p><strong>🛍️ Average Basket Size:</strong> {{ trends.basket_size }} items</p>
+      {% else %}
+        <p>Trend data not available.</p>
+      {% endif %}
     </div>
   </div>
 </body>

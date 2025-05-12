@@ -19,29 +19,22 @@ else:
 
 # Routes
 @app.route("/")
-def home():
+def login():
     return render_template("login.html")
 
 @app.route("/homepage.html")
-def dashboard():
-    return render_template("homepage.html")
-
-@app.route("/upload")
-def upload():
-    return render_template("upload.html")
-
-@app.route("/frequent-items")
-def frequent_items():
-    return render_template("frequent_items.html")
-
-@app.route("/recommendations")
-def recommendations():
+def homepage():
+    # Get recommendations and trends data
     recs = model.recommend(top_n=10)
-    return jsonify([
-        {"items": items, "count": count}
-        for items, count in recs
-    ])
+    active_day, peak_hour, avg_basket = model.get_trends()
 
+    return render_template(
+        "homepage.html",
+        recommendations=recs,
+        active_day=active_day,
+        peak_hour=peak_hour,
+        avg_basket=avg_basket
+    )
 @app.route("/reports")
 def reports():
     trends = model.get_trends()
